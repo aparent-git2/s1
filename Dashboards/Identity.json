@@ -36,7 +36,6 @@
 ],
       barWidth: "auto",
       lineSmoothing: "straightLines",
-      teamEmails: ["11633_426418030212073761@s1.oem", "11633_1@s1.oem"],
       title: "Identity Events",
       layout: {
   h: 14,
@@ -50,7 +49,6 @@
       graphStyle: "",
       query: "src_user.name ='Administrator' and event.type ='Logon Success'\n| columns timestamp, src_endpoint.ip, event.target, auth_protocol \n",
       showBarsColumn: "false",
-      teamEmails: ["11633_426418030212073761@s1.oem", "11633_1@s1.oem"],
       title: "Default Admin Connexion",
       layout: {
   h: 14,
@@ -63,7 +61,6 @@
       graphStyle: "",
       query: "event.type = 'GROUP'\n| columns resource.data.Event\\ Time, group.name, activity_name, resource.data.Member.newValue, resource.data.Member.oldValue",
       showBarsColumn: "false",
-      teamEmails: ["11633_426418030212073761@s1.oem", "11633_1@s1.oem"],
       title: " Group Activity",
       layout: {
   h: 14,
