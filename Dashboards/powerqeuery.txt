@@ -1,0 +1,6 @@
+
+Get Logon failure and group them by username
+
+dataSource.name='Identity' ref_event_code=4625
+| group count() by type_name, src_user.name
+
