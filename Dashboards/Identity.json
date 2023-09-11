@@ -36,12 +36,13 @@
 ],
       barWidth: "auto",
       lineSmoothing: "straightLines",
+      teamEmails: ["11633_426418030212073761@s1.oem", "11633_1@s1.oem"],
       title: "Identity Events",
       layout: {
   h: 14,
-  w: 60,
+  w: 21,
   x: 0,
-  y: 1
+  y: 0
 }
     ,
     },
@@ -49,25 +50,46 @@
       graphStyle: "",
       query: "src_user.name ='Administrator' and event.type ='Logon Success'\n| columns timestamp, src_endpoint.ip, event.target, auth_protocol \n",
       showBarsColumn: "false",
+      teamEmails: ["11633_426418030212073761@s1.oem", "11633_1@s1.oem"],
       title: "Default Admin Connexion",
       layout: {
   h: 14,
   w: 60,
   x: 0,
-  y: 13
+  y: 15
 }
     },
     {
       graphStyle: "",
       query: "event.type = 'GROUP'\n| columns resource.data.Event\\ Time, group.name, activity_name, resource.data.Member.newValue, resource.data.Member.oldValue",
       showBarsColumn: "false",
+      teamEmails: ["11633_426418030212073761@s1.oem", "11633_1@s1.oem"],
       title: " Group Activity",
       layout: {
   h: 14,
   w: 60,
   x: 0,
-  y: 28
+  y: 29
 }
+    },
+    {
+      graphStyle: "",
+      query: "event.type='Logon Failure'\n|group total=count() by Username=src_user.name\n|filter total > 4\n|sort -total",
+      showBarsColumn: "false",
+      teamEmails: ["11633_426418030212073761@s1.oem", "11633_1@s1.oem"],
+      title: "Failed Login by user",
+      layout: {
+  h: 14,
+  i: "3",
+  minH: 3,
+  minW: 6,
+  w: 20,
+  x: 21,
+  y: 2
+}
+    ,
     }
-  ]
+  ],
+  description: "",
+  options: {layout: {locked: 1}}
 }
