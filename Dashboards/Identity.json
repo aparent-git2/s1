@@ -52,40 +52,37 @@
       title: "Default Admin Connexion",
       layout: {
   h: 14,
-  w: 60,
+  w: 21,
   x: 0,
-  y: 15
+  y: 14
 }
     },
     {
       graphStyle: "",
-      query: "event.type = 'GROUP'\n| columns resource.data.Event\\ Time, group.name, activity_name, resource.data.Member.newValue, resource.data.Member.oldValue",
+      query: "| union \n(event.type = 'GROUP' activity_name in ('Remove User')\n| let time=resource.data.Event\\ Time\n| let newuser=resource.data.Member.newValue.split(\",\").get(0).split(\";\")\n| let olduser=resource.data.Member.oldValue.split(\",\").get(0).split(\";\")\n| let user_removed=olduser.filter(func(x) -> !newuser.contains(x))\n| columns time, Group=group.name, Action=activity_name, AffectedUser=user_removed.to_string(\",\")\n),(\nevent.type = 'GROUP' activity_name in ('Add User')\n| let time=resource.data.Event\\ Time\n| let newuser=resource.data.Member.newValue.split(\",\").get(0).split(\";\")\n| let olduser=resource.data.Member.oldValue.split(\",\").get(0).split(\";\")\n| let user_added=newuser.filter(func(x) -> !olduser.contains(x))\n| columns time, Group=group.name, Action=activity_name, AffectedUser=user_added.to_string(\",\")\n)\n| sort -time",
       showBarsColumn: "false",
       title: " Group Activity",
       layout: {
   h: 14,
-  w: 60,
-  x: 0,
-  y: 29
+  w: 19,
+  x: 41,
+  y: 0
 }
     },
     {
       graphStyle: "",
-      query: "event.type='Logon Failure'\n|group total=count() by Username=src_user.name\n|filter total > 4\n|sort -total",
+      query: "dataSource.name='Identity' ref_event_code=4625\n| group Total=count() by Username=src_user.name\n|filter Total > 10\n|sort -Total",
       showBarsColumn: "false",
       title: "Failed Login by user",
       layout: {
   h: 14,
-  i: "3",
-  minH: 3,
-  minW: 6,
   w: 20,
   x: 21,
-  y: 2
+  y: 0
 }
     ,
     }
   ],
   description: "",
-  options: {layout: {locked: 1}}
+  options: {}
 }
